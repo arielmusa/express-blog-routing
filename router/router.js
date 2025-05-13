@@ -3,6 +3,13 @@ import "dotenv/config";
 import { posts } from "./posts.js";
 
 const router = express.Router();
+const { APP_HOST, APP_PORT } = process.env;
+const url = `${APP_HOST}${APP_PORT ? ":" + APP_PORT : ""}`;
+
+// FIX image url for all posts
+posts.forEach((item) => {
+  item.image = url + item.image;
+});
 
 // INDEX
 router.get("", (req, res) => {
